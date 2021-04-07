@@ -1,7 +1,6 @@
 import {
     IframeRoutes,
     IframeListener,
-    DependentDomains,
     AppRequest,
     IframeResponse,
     AppConfig,

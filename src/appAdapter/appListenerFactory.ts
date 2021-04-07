@@ -1,4 +1,4 @@
-import { getDomainAndPath } from '../common/urlUtils';
+import { getDomain } from '../common/urlUtils';
 import { IframeResponse, AppConfig, AppListener } from '../common/types';
 
 /**
@@ -16,7 +16,7 @@ export const appListenerFactory = <AppData>(
 
     // // Cache the iframe's base domain for use in IDing requests from
     // // it later on.
-    const iframeLocation = getDomainAndPath(iframeUrl);
+    const iframeLocation = getDomain(iframeUrl);
 
     // Create a listener, which will await iframe responses
     const listener: AppListener = ({ origin, data: maybeIframePayload }) => {
@@ -37,7 +37,7 @@ export const appListenerFactory = <AppData>(
 
         if (
             // Ensure the caller is the main site's iframe
-            iframeLocation === getDomainAndPath(origin) &&
+            iframeLocation === getDomain(origin) &&
             // and that this is a response from the iframe:
             responseType === responseTypeName &&
             // and that the response is intended for this data type

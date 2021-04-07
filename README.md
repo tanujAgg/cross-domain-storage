@@ -1,4 +1,4 @@
-# Cookie Toss
+# Cross Domain Cookie
 
 A package that makes sharing local data across domains a thing of ease.
 
@@ -12,10 +12,10 @@ This package outputs...
     A Note on the Name
   </b>
   <p>
-    Yes, yes - it's called "Cookie Toss", but it uses localStorage.  In the first iteration, cookies were used, but due to current and upcoming changes to browser cookie policies, not to mention larger hard drive allowances for LS, it made more sense to move it to be localStorage based.
+    Yes, yes - it's called "Cross Domain Cookie", but it uses localStorage.  In the first iteration, cookies were used, but due to current and upcoming changes to browser cookie policies, not to mention larger hard drive allowances for LS, it made more sense to move it to be localStorage based.
   </p>
   <p>
-    "Cookie Toss" it will remain, though.
+    "Cross Domain Cookie" it will remain, though.
   </p>
 </div>
 
@@ -27,11 +27,11 @@ This is great, as it disallows a user's shopping site from grabbing data from, s
 
 Where this becomes painful - sometimes a site owner owns two sites and wants to let the user pass easily between them with all of their saved data. If, for instance, you have a suite of sites with different domains and the user signs in on one, you'd rather not make them sign in again as they traverse to another. This makes for bad UX for users who want a seamless experience.
 
-Enter cookie-toss. This package allows you to store all user data on a central (hub) domain, and set or access it from dependent (satellite) domains. It also allows you to consolidate your data retrieval logic on the central domain, so that all satellite domains need simply fetch it. This allows for a much more DRY approach.
+Enter cross-domain-cookie. This package allows you to store all user data on a central (hub) domain, and set or access it from dependent (satellite) domains. It also allows you to consolidate your data retrieval logic on the central domain, so that all satellite domains need simply fetch it. This allows for a much more DRY approach.
 
 ## Usage
 
-cookie-toss provides both code for the iframe hosted on the hub domain, as well as the data getters and setters for the satellite domains.
+cross-domain-cookie provides both code for the iframe hosted on the hub domain, as well as the data getters and setters for the satellite domains.
 
 The minimum setup just involves deploying the iframe code with a list of access-listed satellite domains to your hub domain, and using the `get` and `set` functions in apps on the satellite domains.
 
@@ -46,10 +46,10 @@ The minimum setup just involves deploying the iframe code with a list of access-
 
 ### Setting and Getting Data from the Satellite Applications
 
-Iframe on __hub.com/cookie-toss.html__:
+Iframe on __hub.com/cross-domain-cookie.html__:
 
 ```javascript
-import { createIframe } from "cookie-toss";
+import { createIframe } from "cross-domain-cookie";
 
 // Sites allows to access data on the hub domain:
 const dependentDomains = ["satellite1.com", "satellite2.com"];
@@ -63,11 +63,11 @@ createIframe({ dependentDomains });
 Somewhere in the app on __satellite1.com__:
 
 ```javascript
-import { set } from "cookie-toss";
+import { set } from "cross-domain-cookie";
 
 const result = await set({
   // This is the URL at which you've hosted the output of `createIframe`, above:
-  iframeUrl: 'https://hub.com/cookie-toss.html',
+  iframeUrl: 'https://hub.com/cross-domain-cookie.html',
   dataKey: 'chocolate-chip-oatmeal',
   data: {
       c: 'is for localStorage',
@@ -79,10 +79,10 @@ const result = await set({
 Somewhere in the app on __satellite2.com__:
 
 ```javascript
-import { get } from "cookie-toss";
+import { get } from "cross-domain-cookie";
 
 const result = await get({
-  iframeUrl: 'https://hub.com/cookie-toss.html',
+  iframeUrl: 'https://hub.com/cross-domain-cookie.html',
   dataKey: 'chocolate-chip-oatmeal',
 });
 
@@ -97,16 +97,16 @@ console.log(result)
 
 Under the hood, the `get` and `set` functions script-inject the iframe into the page, then send it requests to access its localStorage space.  The iframe contains code to interpret the requests, and get and set data as instructed.
 
-However, one of the strengths of cookie-toss is that it allows you to make the iframe the source of truth, alleviating potential race conditions and non-DRY behavior in your satellite apps.  This is done by using handlers in the iframe to do the cookie fetching, so that satellite apps can take the data acquisition process for granted.  Read on...
+However, one of the strengths of cross-domain-cookie is that it allows you to make the iframe the source of truth, alleviating potential race conditions and non-DRY behavior in your satellite apps.  This is done by using handlers in the iframe to do the cookie fetching, so that satellite apps can take the data acquisition process for granted.  Read on...
 
 ### Iframe Handlers
 
 By setting a `handler` for a `dataKey` in the iframe, your satellite apps can call for data, and the hub iframe will handle the getting of the data.  This means no one app has to set the data before others can retrieve it.
 
-Iframe on __hub.com/cookie-toss.html__:
+Iframe on __hub.com/cross-domain-cookie.html__:
 
 ```javascript
-import { createIframe } from 'cookie-toss'
+import { createIframe } from 'cross-domain-cookie'
 
 // A function of the user's choosing, which returns a primitive or stringify-able value:
 import { createUserUuid } from 'my-data-getter'
@@ -132,10 +132,10 @@ We now can add the following code to satellite1.com and satellite2.com.  The fir
 Somewhere in the app on __satellite1.com__:
 
 ```javascript
-import { get } from "cookie-toss";
+import { get } from "cross-domain-cookie";
 
 const result = await get({
-  iframeUrl: 'https://hub.com/cookie-toss.html',
+  iframeUrl: 'https://hub.com/cross-domain-cookie.html',
   dataKey: 'userUuid',
 });
 
@@ -254,3 +254,10 @@ To deploy a new version:
 ```bash
 npm run deploy
 ```
+
+
+# Special Thanks
+
+cross-domain-cookie is forked from https://github.com/JohnMealy23/cookie-toss. Many thanks to John Mealy.
+
+##### Happy Coding! Viresh Shah (http://www.vireshshah.com)

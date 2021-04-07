@@ -14,3 +14,8 @@ export const getDomainAndPath = (origin: string): string => {
     const urlParts = new UrlParser(origin)
     return `${urlParts.host}${urlParts.pathname}`
 };
+
+export const getDomain = (origin: string): string => {
+    const urlParts = new UrlParser(origin)
+    return `${urlParts.host}`
+};
