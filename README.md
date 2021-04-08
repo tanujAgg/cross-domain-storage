@@ -118,8 +118,7 @@ createIframe({
     dataConfigs: [
         {
             dataKey: 'userUuid',
-            handler: createUserUuid,
-            expires: 365 // One year
+            handler: createUserUuid
         }
     ]
 });
@@ -156,7 +155,6 @@ The function for producing the code that lives in the iframe on the hub domain. 
 | `dataConfigs` | An array of configurations for each data value the iframe will manage. | `false` | Array | See below. |
 | `dataConfigs[n].dataKey` | The localStorage key the data will be stored under. Also used when retrieving the value. | `true` | String | `'snickerdoodle'` |
 | `dataConfigs[n].handler` | The function that retrieves the data to be cached in localStorage. Optionally receives an argument the app sends when requesting the datum. Data returned from the `handler` __must__ be stringify-able or primitive. | `true` | Function | ``(userName) => axios(`${myEndpoint}?user=${userName}`)`` |
-| `dataConfigs[n].expires` | The number of days before the data expires. Defaults to 30 years. | `false` | Number | `7` |
 
 #### Returns
 
@@ -180,6 +178,7 @@ The function used by the application for setting the localStorage value on the h
 | `iframeUrl` | The full URL on the hub domain where the iframe lives. | `true` | String | `'https://my-hub-domain.com'` |
 | `dataKey` | The localStorage key the data will be stored on under the hub domain. | `true` | String | `'samoa'` |
 | `data` | The value to be stored. | `true` | Any primitive or stringify-able value. | `{ c: 'is for cookie' }` |
+| `expires` | The number of days before the data expires. Defaults to 30 years. | `false` | Number | `1` |
 
 #### Returns
 
@@ -242,19 +241,6 @@ npm run build
 ```
 
 The output can be found in the `/lib` folder.
-
-### Deploy
-
-To deploy a new version:
-
-- Update the CHANGELOG.md with the recent changes.
-- Update the package.json with the new version number.
-- Run the following bash command:
-
-```bash
-npm run deploy
-```
-
 
 # Special Thanks
 
