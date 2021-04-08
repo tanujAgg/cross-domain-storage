@@ -57,6 +57,10 @@ export const setIframeListener = ({ routes, dependentDomainSpecs }: SetIframeLis
             // Emit the result back to the host application:
             window.parent.postMessage(JSON.stringify(response), origin);
 
+        } else {
+            // Emit the error back to the host application:
+            const response = composeErrorResponse("", "Not allowed to perform this operation.");
+            window.parent.postMessage(JSON.stringify(response), origin);
         }
     };
 

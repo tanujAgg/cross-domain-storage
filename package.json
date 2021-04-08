@@ -1,6 +1,6 @@
 {
   "name": "cross-domain-cookie",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A package that makes sharing local data across domains a thing of ease.",
   "main": "lib/index.js",
   "types": "lib/index.d.js",
