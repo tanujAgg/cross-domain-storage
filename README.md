@@ -1,4 +1,4 @@
-# Cross Domain Cookie
+# Cross Domain Storage
 
 A package that makes sharing local data across domains a thing of ease.
 
@@ -6,18 +6,6 @@ This package outputs...
 
 - A script to be hosted in an HTML document on a central domain, the "hub domain", where all user data is stored.
 - A module to be used in applications on "satellite" domains, which retrieves and sets localStorage values on the hub domain.
-
-<div style="margin: 5px 10px; border: solid 1px #000fbe24; background: #0366d60f; padding: 10px;">
-  <b>
-    A Note on the Name
-  </b>
-  <p>
-    Yes, yes - it's called "Cross Domain Cookie", but it uses localStorage.  In the first iteration, cookies were used, but due to current and upcoming changes to browser cookie policies, not to mention larger hard drive allowances for LS, it made more sense to move it to be localStorage based.
-  </p>
-  <p>
-    "Cross Domain Cookie" it will remain, though.
-  </p>
-</div>
 
 ## Overview
 
