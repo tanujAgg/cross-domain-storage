@@ -1,5 +1,6 @@
+import { AppConfig, AppListener, IframeResponse } from '../common/types';
+
 import { getDomain } from '../common/urlUtils';
-import { IframeResponse, AppConfig, AppListener } from '../common/types';
 
 /**
  * Here we create the listening functions that will receive data-type specific
@@ -55,12 +56,6 @@ export const appListenerFactory = <AppData>(
             } else {
                 reject(new Error(`No data or errors received in request for ${dataKey}.  Please submit a ticket to the project maintainers including the custom handler for ${dataKey}, should one exist. This should not be possible.`))
             }
-        } else {
-            // Clean up:
-            window.removeEventListener('message', listener);
-
-            // Emit the error back to host
-            reject(new Error(`Not allowed to get/set value for ${dataKey}.`));
         }
     };
 
